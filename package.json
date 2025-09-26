@@ -1,0 +1,33 @@
+{
+  "name": "securecodeguard",
+  "displayName": "SecureCodeGuard",
+  "description": "A VS Code extension that enhances AI prompts for secure code, scans for issues like hardcoded secrets and missing auth using Semgrep, and suggests inline fixes.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": ["onLanguage:javascript"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "securecodeguard.enhancePrompt",
+      "title": "Enhance Prompt for Secure Code"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.104.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "eslint": "^9.34.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
