@@ -722,10 +722,10 @@ const https = require('https');
 let diagnosticCollection;
 let securityIssues = new Map();
 let scanHistory = [];
-
+//
 // AI Configuration for GroqCloud
 const AI_CONFIG = {
-    apiKey: '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',
+    apiKey: '',//api key here use your own api key from groqcloud
     model: 'openai/gpt-oss-120b', // Using Groq's model
     baseUrl: 'api.groq.com', // GroqCloud endpoint
     path: '/openai/v1/chat/completions'
