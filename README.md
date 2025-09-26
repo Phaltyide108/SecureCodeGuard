@@ -1,6 +1,6 @@
 # SecureCodeGuard README
 
-This is the README for your extension "SecureCodeGuard". After writing up a brief description, we recommend including the following sections.
+Please dont refer i will update this later as i have to make many changes in the code and also for using make sure to pip install groq and other dependecy thank you
 
 ## Features
 
