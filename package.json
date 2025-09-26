@@ -36,27 +36,27 @@
     "commands": [
       {
         "command": "securecodeguard.enhancePrompt",
-        "title": "🤖 AI Enhance Prompt for Secure Code",
+        "title": "ðŸ¤– AI Enhance Prompt for Secure Code",
         "category": "SecureCodeGuard"
       },
       {
         "command": "securecodeguard.scanWorkspace",
-        "title": "🔍 Scan Entire Workspace",
+        "title": "ðŸ” Scan Entire Workspace",
         "category": "SecureCodeGuard"
       },
       {
         "command": "securecodeguard.applyFix",
-        "title": "🔧 Apply Security Fix",
+        "title": "ðŸ”§ Apply Security Fix",
         "category": "SecureCodeGuard"
       },
       {
         "command": "securecodeguard.viewHistory",
-        "title": "📊 View Security Metrics & History",
+        "title": "ðŸ“Š View Security Metrics & History",
         "category": "SecureCodeGuard"
       },
       {
         "command": "securecodeguard.generateSecureCode",
-        "title": "🤖 AI Generate Secure Code",
+        "title": "ðŸ¤– AI Generate Secure Code",
         "category": "SecureCodeGuard"
       }
     ],

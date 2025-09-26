@@ -21,15 +21,16 @@ rules:
   - id: hardcoded-secret
     patterns:
       - pattern: $VAR = "$SECRET"
-      - metavariable-pattern:
+    pattern-where:
+      - metavariable-regex:
+          metavariable: $VAR
+          regex: (?i)(api[_-]?key|token|secret|passwd|password|credential)
+      - metavariable-regex:
           metavariable: $SECRET
-          pattern: /(?i)(api[_-]?key|token|secret|passwd|password|credentials)/
+          regex: .{8,}
     message: "Possible hardcoded secret detected"
     severity: ERROR
     languages: [python]
-    metadata:
-      category: security
-      cwe: "CWE-798: Use of Hard-coded Credentials"
 
   - id: missing-auth-check
     pattern-either:
