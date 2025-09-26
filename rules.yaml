@@ -1,0 +1,73 @@
+rules:
+  - id: hardcoded-api-key
+    pattern-either:
+      - pattern: |
+          const $VAR = "$VALUE"
+      - pattern: |
+          let $VAR = "$VALUE"
+      - pattern: |
+          var $VAR = "$VALUE"
+    pattern-where:
+      - metavariable-regex:
+          metavariable: $VAR
+          regex: (?i)(api.?key|secret|token|password|pwd|credential)
+      - metavariable-regex:
+          metavariable: $VALUE
+          regex: .{8,}
+    message: "Hardcoded API key or secret detected. Use environment variables instead."
+    languages: [javascript, typescript]
+    severity: ERROR
+
+  - id: hardcoded-secret
+    patterns:
+      - pattern: $VAR = "$SECRET"
+      - metavariable-pattern:
+          metavariable: $SECRET
+          pattern: /(?i)(api[_-]?key|token|secret|passwd|password|credentials)/
+    message: "Possible hardcoded secret detected"
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+
+  - id: missing-auth-check
+    pattern-either:
+      - pattern: |
+          function $FUNC(...) { 
+            $...BODY
+          }
+      - pattern: |
+          const $FUNC = (...) => {
+            $...BODY  
+          }
+    pattern-where:
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: (?i)(login|auth|admin|delete|create|update|remove)
+    pattern-not-inside: |
+      if ($AUTH) { ... }
+    message: "Function handles sensitive operations but lacks authorization checks."
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: missing-authorization
+    pattern-either:
+      - pattern: |
+          @app.route($ROUTE)
+          def $FUNC(...):
+              ...
+    message: "Route may be missing authorization check"
+    severity: WARNING
+    languages: [python]
+    metadata:
+      category: security
+      cwe: "CWE-285: Improper Authorization"
+
+  - id: python-eval-usage
+    pattern-either:
+      - pattern: eval($ARG)
+      - pattern: exec($ARG)
+    message: "Avoid using eval() or exec() as they can execute arbitrary code."
+    languages: [python]
+    severity: ERROR

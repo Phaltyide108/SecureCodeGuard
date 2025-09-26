@@ -1,26 +1,165 @@
 {
   "name": "securecodeguard",
-  "displayName": "SecureCodeGuard",
-  "description": "A VS Code extension that enhances AI prompts for secure code, scans for issues like hardcoded secrets and missing auth using Semgrep, and suggests inline fixes.",
-  "version": "0.0.1",
+  "displayName": "SecureCodeGuard AI",
+  "description": "AI-powered VS Code extension that enhances prompts for secure code, scans for security issues using Semgrep, and provides intelligent AI-generated fixes. Supports JavaScript, TypeScript, and Python.",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
   "engines": {
     "vscode": "^1.104.0"
   },
   "categories": [
-    "Other"
+    "Linters",
+    "Security", 
+    "AI",
+    "Code Analysis"
   ],
-  "activationEvents": ["onLanguage:javascript"],
+  "keywords": [
+    "security",
+    "semgrep",
+    "ai",
+    "groq",
+    "python",
+    "javascript",
+    "typescript",
+    "code-analysis",
+    "vulnerability-detection",
+    "secure-coding",
+    "llama"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:python"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "securecodeguard.enhancePrompt",
-      "title": "Enhance Prompt for Secure Code"
-    }]
+    "commands": [
+      {
+        "command": "securecodeguard.enhancePrompt",
+        "title": "🤖 AI Enhance Prompt for Secure Code",
+        "category": "SecureCodeGuard"
+      },
+      {
+        "command": "securecodeguard.scanWorkspace",
+        "title": "🔍 Scan Entire Workspace",
+        "category": "SecureCodeGuard"
+      },
+      {
+        "command": "securecodeguard.applyFix",
+        "title": "🔧 Apply Security Fix",
+        "category": "SecureCodeGuard"
+      },
+      {
+        "command": "securecodeguard.viewHistory",
+        "title": "📊 View Security Metrics & History",
+        "category": "SecureCodeGuard"
+      },
+      {
+        "command": "securecodeguard.generateSecureCode",
+        "title": "🤖 AI Generate Secure Code",
+        "category": "SecureCodeGuard"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "securecodeguard.enhancePrompt",
+          "group": "SecureCodeGuard@1",
+          "when": "true"
+        },
+        {
+          "command": "securecodeguard.generateSecureCode",
+          "group": "SecureCodeGuard@2", 
+          "when": "editorHasSelection && (resourceExtname == '.js' || resourceExtname == '.ts' || resourceExtname == '.py')"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "securecodeguard.scanWorkspace",
+          "group": "SecureCodeGuard@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "securecodeguard.enhancePrompt",
+          "when": "true"
+        },
+        {
+          "command": "securecodeguard.scanWorkspace", 
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "securecodeguard.viewHistory",
+          "when": "true"
+        },
+        {
+          "command": "securecodeguard.generateSecureCode",
+          "when": "editorHasSelection && (resourceExtname == '.js' || resourceExtname == '.ts' || resourceExtname == '.py')"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SecureCodeGuard AI",
+      "properties": {
+        "securecodeguard.autoScanOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically scan files when they are saved"
+        },
+        "securecodeguard.autoScanOnChange": {
+          "type": "boolean", 
+          "default": true,
+          "description": "Automatically scan files when they are changed (with throttle)"
+        },
+        "securecodeguard.scanDelay": {
+          "type": "number",
+          "default": 3000,
+          "description": "Delay in milliseconds before scanning after text changes"
+        },
+        "securecodeguard.maxFilesToScan": {
+          "type": "number",
+          "default": 100,
+          "description": "Maximum number of files to scan in workspace scan"
+        },
+        "securecodeguard.aiEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered features (prompt enhancement and code generation)"
+        },
+        "securecodeguard.showMetrics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show security metrics and scan history"
+        },
+        "securecodeguard.supportedLanguages": {
+          "type": "array",
+          "default": ["javascript", "typescript", "python"],
+          "description": "List of supported programming languages for security scanning"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "securecodeguard.enhancePrompt",
+        "key": "ctrl+shift+s ctrl+shift+p",
+        "mac": "cmd+shift+s cmd+shift+p",
+        "when": "true"
+      },
+      {
+        "command": "securecodeguard.generateSecureCode",
+        "key": "ctrl+shift+s ctrl+shift+f",
+        "mac": "cmd+shift+s cmd+shift+f", 
+        "when": "editorHasSelection && (resourceExtname == '.js' || resourceExtname == '.ts' || resourceExtname == '.py')"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed'",
+    "watch": "echo 'No watch needed'"
   },
   "devDependencies": {
     "@types/vscode": "^1.104.0",
@@ -29,5 +168,16 @@
     "eslint": "^9.34.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2"
-  }
+  },
+  "dependencies": {},
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#007ACC",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git", 
+    "url": "https://github.com/yourusername/securecodeguard"
+  },
+  "license": "MIT"
 }
